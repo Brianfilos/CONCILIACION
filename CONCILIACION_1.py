@@ -192,8 +192,14 @@ if excel_file is not None:
         st.dataframe(registro_servicio.to_frame().T)
         st.write(f"Diferencia entre la suma del EXTRACTO y el registro del AUXILIAR: {diferencia_servicios}")
 
-    # Excluir los registros cruzados usando índices
-    df_csv_no_cruzados_final = df_csv_no_cruzados[~df_csv_no_cruzados['Usado_en_cruce_gastos'] & ~df_csv_no_cruzados['Usado_en_cruce_servicios']].drop(columns=['Usado_en_cruce_gastos', 'Usado_en_cruce_servicios'])
+    # Excluir registros marcados como usados en cruces
+    df_csv_no_cruzados_final = df_csv_no_cruzados[
+    ~(df_csv_no_cruzados['Usado_en_cruce_gastos'] | df_csv_no_cruzados['Usado_en_cruce_servicios'])
+    ].copy()
+
+    # Limpiar las columnas temporales para el DataFrame final
+    df_csv_no_cruzados_final = df_csv_no_cruzados_final.drop(columns=['Usado_en_cruce_gastos', 'Usado_en_cruce_servicios'], errors='ignore')
+
 
     # Actualizar los DataFrames finales y visualización
     df_cruzados = pd.DataFrame(registros_cruzados)
