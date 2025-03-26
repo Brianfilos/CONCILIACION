@@ -4,6 +4,35 @@ import streamlit as st
 # Título de la aplicación
 st.title("Procesamiento y Cruce de Archivos")
 
+# Expander para mostrar estructura esperada del CSV
+with st.expander("📄 Estructura esperada del archivo CSV (EXTRACTO BANCARIO)"):
+    st.write("El archivo CSV debe contener los siguientes campos:")
+    st.code("""
+CUENTA, SUCURSAL, (Columna vacía), FECHA, (Columna vacía), VALOR, CODIGO, DESCRIPCION, (Columna vacía)
+236-000019-82, 700, , 20250131, , 218500.00, 4511, CONSIGNACION CORRESPONSAL CB, 0
+236-000019-82, 236, , 20250131, , 13950.00, 1167, PAGO QR ANA L. M., 0
+236-000019-82, 236, , 20250131, , 9300.00, 1481, PAGO QR ERIKA PATRICIA VILLA V, 0
+    """, language="csv")
+
+# Expander para mostrar estructura esperada del Excel
+with st.expander("📊 Estructura esperada del archivo Excel (AUXILIAR CONTABLE)"):
+    st.write("El archivo Excel debe contener las siguientes columnas:")
+    st.code("""
+Fecha, Cuenta, Nombre, Debito, Credito, Observaciones
+2025-01-31, 110505, Banco XYZ, 50000.00, 0.00, Pago factura
+2025-01-31, 220505, Cliente ABC, 0.00, 50000.00, Abono cliente
+    """, language="plaintext")
+    
+# Expander para mostrar estructura esperada del Excel
+with st.expander("📊 Estructura esperada del archivo Excel (MEDIOS DE PAGO)"):
+    st.write("El archivo Excel debe contener las siguientes columnas:")
+    st.code("""
+Fecha, Cuenta, Nombre, Debito, Credito, Observaciones
+2025-01-31, 110505, Banco XYZ, 50000.00, 0.00, Pago factura
+2025-01-31, 220505, Cliente ABC, 0.00, 50000.00, Abono cliente
+    """, language="plaintext")
+
+
 # Función para formatear la moneda en pesos colombianos
 def format_colombian_currency(value):
     # Convierte el valor numérico a formato de pesos colombianos
